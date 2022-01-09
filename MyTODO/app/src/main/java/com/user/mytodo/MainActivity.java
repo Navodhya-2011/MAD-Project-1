@@ -17,17 +17,25 @@ public class MainActivity extends AppCompatActivity {
     private ListView listView;
     private TextView count;
     Context context;
+    private DBHandler dbHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        context = this;
+        dbHandler = new DBHandler(context);
+
         //connect with xml using ids
         btnAdd = findViewById(R.id.btnAdd);
         listView = findViewById(R.id.todoList);
         count = findViewById(R.id.count);
-        context = this;
+
+
+        //get todoFields count from the database table
+        int countTodo = dbHandler.countToDo();
+        count.setText("You have "+countTodo+ " todos");
 
         btnAdd.setOnClickListener(new View.OnClickListener() {  //onClickLister
             @Override
