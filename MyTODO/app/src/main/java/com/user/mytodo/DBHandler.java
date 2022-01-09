@@ -101,4 +101,47 @@ public class DBHandler extends SQLiteOpenHelper {
         }
         return toDos;
     }
+
+    public void deleteTodo(int id){
+        SQLiteDatabase db = getWritableDatabase(); //create writable database connection
+        db.delete(TABLE_NAME, ID + " =?",new String[]{String.valueOf(id)}); //SQLite delete query
+        db.close();//close database connection
+    }
+
+    public Todo getSingleTodo(int id){
+        SQLiteDatabase db = getWritableDatabase();//create writable database connection
+        //dSQLite query to get all data relevant field (using id)
+        Cursor cursor = db.query(TABLE_NAME,new String[]{ID,TITLE,DESCRIPTION,STARTED,FINISHED},ID + " =?",new String[]{String.valueOf(id)},null,null,null);
+
+        Todo toDo;
+        if (cursor != null){ //if there is any data
+            cursor.moveToFirst(); //set the cursor
+            //create object with new values
+            toDo = new Todo(
+                    cursor.getInt(0),//id
+                    cursor.getString(1),//title
+                    cursor.getString(2),//description
+                    cursor.getLong(3),//started
+                    cursor.getLong(4)//finished
+            );
+
+            return toDo; //return the data
+        }
+        return null;
+    }
+
+    public int updateSingleTodo(Todo todo){
+        SQLiteDatabase db = getWritableDatabase();//create writable database connection
+        ContentValues contentValues = new ContentValues(); //create content value object
+        //put the new data into the contentValue object
+        contentValues.put(TITLE, todo.getTitle());
+        contentValues.put(DESCRIPTION, todo.getDescription());
+        contentValues.put(STARTED, todo.getStarted());
+        contentValues.put(FINISHED, todo.getFinished());
+        //update the database and get the status
+        int status = db.update(TABLE_NAME, contentValues, ID + " =?", new String[]{String.valueOf(todo.getId())});
+
+        db.close();
+        return status; //return the status
+    }
 }
