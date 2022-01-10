@@ -115,7 +115,7 @@
                         android:id="@+id/bsin"
                         android:text="sin"
                         android:textAllCaps="false"
-                        android:textSize="26sp"
+                        android:textSize="20sp"
                         android:textColor="#ffa500"
                         android:layout_weight="1"
                         android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                     <Button
                         android:id="@+id/bcos"
                         android:text="cos"
-                        android:textSize="24sp"
+                        android:textSize="20sp"
                         android:textAllCaps="false"
                         android:textColor="#ffa500"
                         android:layout_weight="1"
@@ -136,7 +136,7 @@
                     <Button
                         android:id="@+id/btan"
                         android:text="tan"
-                        android:textSize="26sp"
+                        android:textSize="20sp"
                         android:textAllCaps="false"
                         android:textColor="#ffa500"
                         android:layout_weight="1"
